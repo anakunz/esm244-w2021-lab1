@@ -40,9 +40,50 @@ top_five_status <- sf_trees %>%
 
 ```
 
+Make a graph by top five observations by legal obsv
+
+```{r}
+ggplot(top_five_status, aes(x = fct_reorder(legal_status, tree_count), y = tree_count))+ #change to factor associated with tree count associated with that
+  geom_col()+
+  labs(
+    x = "Legal Status",
+    y = "Tree Count"
+  )+
+  coord_flip()+
+  theme_minimal()
+```
 
 
+### More data wrangling
+only want to keep obsv (rows) blackwood acacia trees
 
+```{r}
+blackwood_acacia <-sf_trees %>% 
+  filter(str_detect(species, "Blackwood Acacia")) %>%  #keep observations wehre a certain string is detected ANYWHERE within that variable
+  select(legal_status, date, latitude, longitude)
 
+ggplot(blackwood_acacia, aes(x = longitude, y = latitude))+ 
+  geom_point()
+```
+
+### Tidy r separate and unite functions
+
+usefull for combining and separating columns
+
+common name and scientific name, split them using the :: in the dataset!
+
+```{r}
+sf_trees_sep <- sf_trees %>% 
+  separate(species, into = c("spp_scientific", "spp_common"), sep = "::")
+```
+
+example of tidyr unite
+
+combine tree and legal status into same column. probaby wouldnt do this
+
+```{r}
+sf_trees_unite <- sf_trees %>% 
+  unite("id_status", tree_id:legal_status, sep = "_cool_")
+```
 
 
