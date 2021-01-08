@@ -86,4 +86,13 @@ sf_trees_unite <- sf_trees %>%
   unite("id_status", tree_id:legal_status, sep = "_cool_")
 ```
 
+### Make some actual maps of blackwood acacia trees in SF
+
+use `st_as_sf()` to convert the lat and long to spatial coordinates
+set a coord ref system 
+
+```{r}
+blackwood_acacia_sp <- blackwood_acacia %>% 
+  
+```
 
