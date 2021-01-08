@@ -1,0 +1,48 @@
+---
+title: "ESM 244 Lab1"
+author: "Anastasia Kunz"
+date: "1/7/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(here)
+library(sf)
+library(tmap)
+
+
+```
+
+
+### Read in SF trees data
+
+```{r}
+sf_trees<- read.csv(here("data", "sf_trees", "sf_trees.csv"))
+```
+
+### Basic wrangling reminders
+
+refresh skills for data wrangling and summary statistics using functions in the `dplyer` package
+
+find top 5 highest obsv of trees by legal_status, do wrangling, make a graph
+using: count
+
+
+```{r}
+top_five_status <- sf_trees %>% 
+  count(legal_status) %>% #count does summarize, n function, and group by in one fucntion
+  drop_na(legal_status) %>%  # for any variable, just need to specify can be multiple
+  rename(tree_count = n) %>%  #NEW NAME GOES ON THE LEFT
+  relocate(tree_count) %>%  #single column will move it to the front; must use new name bc rename came first
+  slice_max(tree_count, n = 5) #identify rows with high values and only keeps top ones, there is also a min
+
+```
+
+
+
+
+
+
+
