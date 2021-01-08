@@ -121,7 +121,7 @@ combine blackwood acacia tree obsv and sf roads map:
 ```{r}
 ggplot()+ #but nothing within it bc want to specify the data for each geom within the sf
   geom_sf(data = sf_map, size = 0.1, color = "darkgray")+
-  geom_sf(data = blackwood_acacia_sp, color = "red", size = 0.5)+
+  geom_sf(data = blackwood_acacia_sp, color = "magenta", size = 0.5)+
   theme_void()
 ```
 
