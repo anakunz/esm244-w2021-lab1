@@ -93,6 +93,44 @@ set a coord ref system
 
 ```{r}
 blackwood_acacia_sp <- blackwood_acacia %>% 
-  
+  drop_na(latitude, longitude) %>% 
+  st_as_sf(coords = c("longitude", "latitude"))
+
+st_crs(blackwood_acacia_sp)= 4326
+
+ggplot(blackwood_acacia_sp)+
+  geom_sf(color = "darkgreen")
+```
+
+
+read in sf roads shp file
+
+```{r}
+sf_map <-read_sf(here("data", "sf_map", "tl_2017_06075_roads.shp")) #read spatial data so use sf
+
+st_transform(sf_map, 4326)
+
+ggplot(sf_map)+
+  geom_sf()
+```
+
+use st_transform(sf map) to get the crs format!! dont want to mix crs
+
+combine blackwood acacia tree obsv and sf roads map:
+
+```{r}
+ggplot()+ #but nothing within it bc want to specify the data for each geom within the sf
+  geom_sf(data = sf_map, size = 0.1, color = "darkgray")+
+  geom_sf(data = blackwood_acacia_sp, color = "red", size = 0.5)+
+  theme_void()
+```
+
+###  now to create an interactive map:
+
+```{r}
+tmap_mode("view")
+
+tm_shape(blackwood_acacia_sp) + # base layer
+  tm_dots()
 ```
 
